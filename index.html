@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kai's Projects - Progress Tracker</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0f0f0f; color: #fff; min-height: 100vh; padding: 40px;
+    }
+    h1 { font-size: 2rem; margin-bottom: 10px; }
+    .subtitle { color: #666; margin-bottom: 40px; }
+    
+    .project { 
+      background: #1a1a1a; border-radius: 12px; padding: 24px; margin-bottom: 20px;
+      border: 1px solid #333;
+    }
+    .project h2 { font-size: 1.3rem; margin-bottom: 8px; }
+    .project .desc { color: #888; font-size: 0.9rem; margin-bottom: 16px; }
+    
+    .phase {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 12px;
+      padding: 12px; border-radius: 8px; background: #252525;
+    }
+    .phase .num {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 0.85rem;
+    }
+    .phase.done .num { background: #22c55e; color: #000; }
+    .phase.in-progress .num { background: #f59e0b; color: #000; }
+    .phase.pending .num { background: #444; color: #888; }
+    
+    .phase .name { flex: 1; }
+    .phase .status { font-size: 0.8rem; color: #666; }
+    .phase.done .status { color: #22c55e; }
+    .phase.in-progress .status { color: #f59e0b; }
+    
+    .link {
+      display: inline-block; margin-top: 16px; padding: 10px 20px;
+      background: #3b82f6; color: #fff; text-decoration: none;
+      border-radius: 8px; font-weight: 500;
+    }
+    .link:hover { background: #2563eb; }
+    
+    .overall {
+      display: inline-block; padding: 6px 14px; border-radius: 20px;
+      font-size: 0.85rem; font-weight: 600; margin-left: 12px;
+    }
+    .overall-0 { background: #222; color: #666; }
+    .overall-25 { background: #3f2e00; color: #fbbf24; }
+    .overall-50 { background: #3f2e00; color: #fbbf24; }
+    .overall-75 { background: #1e3a2e; color: #22c55e; }
+    .overall-100 { background: #1e3a2e; color: #22c55e; }
+  </style>
+</head>
+<body>
+  <h1>Kai's Projects <span id="overall" class="overall overall-0">0%</span></h1>
+  <p class="subtitle">Track progress of AI-assisted projects</p>
+  
+  <div class="project" id="tictactoe">
+    <h2>Tic Tac Toe <span class="overall overall-0" id="tttoverall">0%</span></h2>
+    <p class="desc">Solo + Multiplayer (cross-device real-time) game</p>
+    
+    <div class="phase done" data-phase="1">
+      <div class="num">✓</div>
+      <div class="name">Requirements Spec</div>
+      <div class="status">done</div>
+    </div>
+    <div class="phase in-progress" data-phase="2">
+      <div class="num">2</div>
+      <div class="name">Frontend (UI + Game Logic)</div>
+      <div class="status">in progress</div>
+    </div>
+    <div class="phase pending" data-phase="3">
+      <div class="num">3</div>
+      <div class="name">Backend (Real-time Sync)</div>
+      <div class="status">pending</div>
+    </div>
+    <div class="phase pending" data-phase="4">
+      <div class="num">4</div>
+      <div class="name">Solo AI Mode</div>
+      <div class="status">pending</div>
+    </div>
+    <div class="phase pending" data-phase="5">
+      <div class="num">5</div>
+      <div class="name">Testing</div>
+      <div class="status">pending</div>
+    </div>
+    <div class="phase pending" data-phase="6">
+      <div class="num">6</div>
+      <div class="name">Deploy</div>
+      <div class="status">pending</div>
+    </div>
+    
+    <a href="#" class="link" id="gameLink">🎮 Play Game (coming soon)</a>
+  </div>
+  
+  <script>
+    function updateProgress() {
+      const phases = document.querySelectorAll('#tictactoe .phase');
+      let done = 0;
+      phases.forEach(p => {
+        if (p.classList.contains('done')) done++;
+      });
+      const pct = Math.round((done / phases.length) * 100);
+      document.getElementById('tttoverall').textContent = pct + '%';
+      document.getElementById('tttoverall').className = 'overall overall-' + pct;
+      document.getElementById('overall').textContent = pct + '%';
+      document.getElementById('overall').className = 'overall overall-' + pct;
+    }
+    updateProgress();
+  </script>
+</body>
+</html>
